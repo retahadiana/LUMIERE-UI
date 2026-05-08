@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Glow Radiance Serum - Serum wajah premium untuk kulit glowing dan sehat.">
+  <title>Glow Radiance Serum - LUMIÈRE</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar"><div class="container">
+    <a href="index.html" class="nav-logo">LUMI<span>ÈRE</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="products.html" class="active">Produk</a></li>
+      <li><a href="articles.html">Artikel</a></li>
+      <li><a href="transaction-history.html">Riwayat</a></li>
+      <li><a href="admin/dashboard.html">Admin</a></li>
+    </ul>
+    <div class="nav-actions"><a href="cart.html" class="nav-cart">🛒<span class="badge cart-badge d-none">0</span></a></div>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div></nav>
+
+  <section class="section pt-40">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Beranda</a> / <a href="products.html">Produk</a> / <span>Glow Radiance Serum</span></div>
+
+      <div class="grid-detail">
+        <!-- Product Images -->
+        <div>
+          <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&h=500&fit=crop" alt="Glow Radiance Serum" class="detail-image" id="main-product-img">
+          <div class="thumbs-row">
+            <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=120&h=100&fit=crop" alt="thumb1" class="thumb-img active">
+            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=120&h=100&fit=crop" alt="thumb2" class="thumb-img">
+            <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=120&h=100&fit=crop" alt="thumb3" class="thumb-img">
+          </div>
+        </div>
+
+        <!-- Product Info -->
+        <div>
+          <span class="card-tag detail-tag">Skincare</span>
+          <h1 class="detail-title">Glow Radiance Serum</h1>
+          <div class="rating detail-rating">★★★★★ <span class="detail-rating-note ml-8">(128 ulasan)</span></div>
+          <div class="card-price detail-price-lg">Rp 285.000 <span class="old">Rp 350.000</span></div>
+
+          <p class="detail-description">Serum wajah dengan kandungan Vitamin C, Niacinamide, dan Hyaluronic Acid yang diformulasikan untuk memberikan efek glowing alami, mencerahkan, dan melembapkan kulit secara intensif. Cocok untuk semua jenis kulit.</p>
+
+          <div class="detail-stats">
+            <div class="detail-stat">
+              <div class="detail-stat-value text-pink-dark">30ml</div>
+              <div class="detail-stat-label">Ukuran</div>
+            </div>
+            <div class="detail-stat">
+              <div class="detail-stat-value text-mauve">12 Bulan</div>
+              <div class="detail-stat-label">Masa Pakai</div>
+            </div>
+            <div class="detail-stat">
+              <div class="detail-stat-value text-gold">BPOM</div>
+              <div class="detail-stat-label">Tersertifikasi</div>
+            </div>
+          </div>
+
+          <div class="detail-actions">
+            <button class="btn btn-primary flex-1" onclick="addToCart('Glow Radiance Serum',285000,'')">🛒 Tambah ke Keranjang</button>
+            <a href="checkout.html" class="btn btn-gold">Beli Sekarang</a>
+          </div>
+
+          <div class="detail-section">
+            <h4 class="mb-12">Kandungan Utama</h4>
+            <div class="detail-chips">
+              <span class="chip">Vitamin C 15%</span>
+              <span class="chip">Niacinamide 5%</span>
+              <span class="chip">Hyaluronic Acid</span>
+              <span class="chip">Aloe Vera Extract</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="reviews-section">
+        <h2 class="mb-24">Ulasan Pelanggan</h2>
+        <div class="review-list">
+          <div class="card review-card">
+            <div class="review-header">
+              <strong>Anisa Rahma</strong><span class="rating">★★★★★</span>
+            </div>
+            <p class="card-text">Serum ini benar-benar amazing! Kulit saya jadi lebih glowing dan cerah setelah pemakaian rutin 2 minggu. Teksturnya ringan dan cepat menyerap.</p>
+            <span class="review-date">20 Apr 2026</span>
+          </div>
+          <div class="card review-card">
+            <div class="review-header">
+              <strong>Dewi Kartika</strong><span class="rating">★★★★☆</span>
+            </div>
+            <p class="card-text">Produknya bagus, packaging-nya juga cantik. Cocok untuk kulit kombinasi saya. Tinggal nunggu hasil jangka panjangnya.</p>
+            <span class="review-date">18 Apr 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2026 LUMIÈRE Beauty & Lifestyle. All rights reserved.</p></div></div></footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

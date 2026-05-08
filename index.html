@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LUMIÈRE - Discover premium beauty & lifestyle products for your daily self-care ritual.">
+  <title>LUMIÈRE - Beauty & Lifestyle</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">LUMI<span>ÈRE</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Beranda</a></li>
+        <li><a href="products.html">Produk</a></li>
+        <li><a href="articles.html">Artikel</a></li>
+        <li><a href="transaction-history.html">Riwayat</a></li>
+        <li><a href="admin/dashboard.html">Admin</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="cart.html" class="nav-cart" id="nav-cart">🛒<span class="badge cart-badge d-none">0</span></a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">✨ New Collection 2026</span>
+        <h1>Temukan <span>Kecantikan</span> Terbaikmu</h1>
+        <p>Koleksi premium skincare, makeup, dan produk lifestyle yang diformulasikan khusus untuk merawat kecantikan alami Anda setiap hari.</p>
+        <div class="hero-btns">
+          <a href="products.html" class="btn btn-primary">Jelajahi Produk</a>
+          <a href="articles.html" class="btn btn-secondary">Baca Artikel</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500&h=600&fit=crop" alt="Beauty Products">
+        <div class="hero-float f1">🌸 100% Organic</div>
+        <div class="hero-float f2">⭐ 4.9 Rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-header">
+        <h2>Kategori Pilihan</h2>
+        <p>Temukan produk yang tepat untuk kebutuhan perawatan Anda</p>
+        <div class="line"></div>
+      </div>
+      <div class="grid-4">
+        <a href="products.html" class="card card-center">
+          <div class="card-icon-xl">💄</div>
+          <h4>Makeup</h4>
+          <p class="card-text">42 Produk</p>
+        </a>
+        <a href="products.html" class="card card-center">
+          <div class="card-icon-xl">🧴</div>
+          <h4>Skincare</h4>
+          <p class="card-text">38 Produk</p>
+        </a>
+        <a href="products.html" class="card card-center">
+          <div class="card-icon-xl">🌿</div>
+          <h4>Body Care</h4>
+          <p class="card-text">25 Produk</p>
+        </a>
+        <a href="products.html" class="card card-center">
+          <div class="card-icon-xl">💐</div>
+          <h4>Fragrance</h4>
+          <p class="card-text">18 Produk</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="section bg-white" id="featured-products">
+    <div class="container">
+      <div class="section-header">
+        <h2>Produk Unggulan</h2>
+        <p>Best seller yang paling digemari oleh pelanggan kami</p>
+        <div class="line"></div>
+      </div>
+      <div class="grid-4">
+        <div class="card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=300&fit=crop" alt="Serum Wajah">
+          <div class="card-body">
+            <span class="card-tag">Skincare</span>
+            <h4 class="card-title">Glow Radiance Serum</h4>
+            <div class="rating">★★★★★</div>
+            <div class="flex-between-center">
+              <span class="card-price">Rp 285.000</span>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('Glow Radiance Serum',285000,'')">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=300&fit=crop" alt="Lipstik">
+          <div class="card-body">
+            <span class="card-tag">Makeup</span>
+            <h4 class="card-title">Velvet Matte Lipstick</h4>
+            <div class="rating">★★★★☆</div>
+            <div class="flex-between-center">
+              <span class="card-price">Rp 165.000</span>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('Velvet Matte Lipstick',165000,'')">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400&h=300&fit=crop" alt="Moisturizer">
+          <div class="card-body">
+            <span class="card-tag">Skincare</span>
+            <h4 class="card-title">Hydra Boost Moisturizer</h4>
+            <div class="rating">★★★★★</div>
+            <div class="flex-between-center">
+              <span class="card-price">Rp 320.000</span>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('Hydra Boost Moisturizer',320000,'')">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1583209814683-c023dd293cc6?w=400&h=300&fit=crop" alt="Parfum">
+          <div class="card-body">
+            <span class="card-tag">Fragrance</span>
+            <h4 class="card-title">Rose Petal Eau de Parfum</h4>
+            <div class="rating">★★★★★</div>
+            <div class="flex-between-center">
+              <span class="card-price">Rp 450.000</span>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('Rose Petal Eau de Parfum',450000,'')">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LATEST ARTICLES -->
+  <section class="section" id="latest-articles">
+    <div class="container">
+      <div class="section-header">
+        <h2>Artikel Terbaru</h2>
+        <p>Tips kecantikan dan lifestyle untuk inspirasi harianmu</p>
+        <div class="line"></div>
+      </div>
+      <div class="grid-3">
+        <a href="article-detail.html" class="card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=400&h=260&fit=crop" alt="Skincare Routine">
+          <div class="card-body">
+            <span class="card-tag">Skincare</span>
+            <h4 class="card-title">10 Langkah Skincare Routine untuk Kulit Glowing</h4>
+            <p class="card-text">Panduan lengkap membangun skincare routine yang tepat untuk semua jenis kulit...</p>
+            <div class="flex-between-gray">
+              <span>28 Apr 2026</span><span>5 min read</span>
+            </div>
+          </div>
+        </a>
+        <a href="article-detail.html" class="card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=260&fit=crop" alt="Makeup Tips">
+          <div class="card-body">
+            <span class="card-tag">Makeup</span>
+            <h4 class="card-title">Makeup Natural Look yang Cocok untuk Sehari-hari</h4>
+            <p class="card-text">Tutorial makeup natural yang simpel namun tetap cantik untuk aktivitas sehari-hari...</p>
+            <div class="flex-between-gray">
+              <span>25 Apr 2026</span><span>4 min read</span>
+            </div>
+          </div>
+        </a>
+        <a href="article-detail.html" class="card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=260&fit=crop" alt="Self Care">
+          <div class="card-body">
+            <span class="card-tag">Lifestyle</span>
+            <h4 class="card-title">Self-Care Sunday: Ritual Relaksasi di Rumah</h4>
+            <p class="card-text">Ide-ide self-care yang bisa kamu lakukan di rumah untuk me-time yang berkualitas...</p>
+            <div class="flex-between-gray">
+              <span>22 Apr 2026</span><span>6 min read</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMO BANNER -->
+  <section class="section promo-banner" id="promo-banner">
+    <div class="container">
+      <h2 class="promo-banner-title">💎 Special Offer - Diskon 30%</h2>
+      <p class="promo-banner-text">Dapatkan diskon spesial untuk seluruh koleksi skincare premium kami. Penawaran terbatas!</p>
+      <a href="products.html" class="btn btn-gold">Belanja Sekarang →</a>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section bg-white" id="newsletter">
+    <div class="container text-center">
+      <h2>Bergabung dengan Newsletter Kami</h2>
+      <p class="newsletter-copy">Dapatkan tips kecantikan, promo eksklusif, dan info produk terbaru langsung di inbox Anda.</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault();showToast('Terima kasih telah berlangganan! 🎉');">
+        <input type="email" class="form-control" placeholder="Masukkan email Anda" required>
+        <button type="submit" class="btn btn-primary">Langganan</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">LUMI<span class="text-pink">ÈRE</span></div>
+          <p class="footer-copy">Platform beauty & lifestyle terpercaya dengan produk berkualitas premium untuk perawatan diri Anda.</p>
+        </div>
+        <div>
+          <h4>Navigasi</h4>
+          <ul>
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="products.html">Produk</a></li>
+            <li><a href="articles.html">Artikel</a></li>
+            <li><a href="cart.html">Keranjang</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Kategori</h4>
+          <ul>
+            <li><a href="products.html">Skincare</a></li>
+            <li><a href="products.html">Makeup</a></li>
+            <li><a href="products.html">Body Care</a></li>
+            <li><a href="products.html">Fragrance</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Hubungi Kami</h4>
+          <ul>
+            <li>📧 hello@lumiere.id</li>
+            <li>📞 (021) 1234-5678</li>
+            <li>📍 Jakarta, Indonesia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 LUMIÈRE Beauty & Lifestyle. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

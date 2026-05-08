@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jelajahi koleksi produk beauty & lifestyle premium LUMIÈRE.">
+  <title>Katalog Produk - LUMIÈRE</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar"><div class="container">
+    <a href="index.html" class="nav-logo">LUMI<span>ÈRE</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="products.html" class="active">Produk</a></li>
+      <li><a href="articles.html">Artikel</a></li>
+      <li><a href="transaction-history.html">Riwayat</a></li>
+      <li><a href="admin/dashboard.html">Admin</a></li>
+    </ul>
+    <div class="nav-actions"><a href="cart.html" class="nav-cart">🛒<span class="badge cart-badge d-none">0</span></a></div>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div></nav>
+
+  <section class="section pt-40">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Beranda</a> / <span>Katalog Produk</span></div>
+      <div class="section-header mb-30">
+        <h1 class="fs-24">Katalog Produk</h1>
+        <p>Temukan produk kecantikan terbaik untuk perawatan harianmu</p>
+        <div class="line"></div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="categories mb-0">
+          <button class="cat-pill active" data-category="all">Semua</button>
+          <button class="cat-pill" data-category="skincare">Skincare</button>
+          <button class="cat-pill" data-category="makeup">Makeup</button>
+          <button class="cat-pill" data-category="bodycare">Body Care</button>
+          <button class="cat-pill" data-category="fragrance">Fragrance</button>
+        </div>
+        <div class="search-bar"><input type="text" placeholder="Cari produk..."></div>
+      </div>
+
+      <div class="grid-4">
+        <a href="product-detail.html?id=1" class="card searchable" data-cat="skincare" data-id="1">
+          <img class="card-img" src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=300&fit=crop" alt="Serum">
+          <div class="card-body">
+            <span class="card-tag">Skincare</span>
+            <h4 class="card-title">Glow Radiance Serum</h4>
+            <div class="rating">★★★★★</div>
+            <div class="flex-between-center">
+              <span class="card-price">Rp 285.000</span>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('Glow Radiance Serum',285000,'')">+ Keranjang</button>
+            </div>
+          </div>
+        </a>
+        <a href="product-detail.html?id=2" class="card searchable" data-cat="makeup" data-id="2">
+          <img class="card-img" src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=300&fit=crop" alt="Lipstik">
+          <div class="card-body">
+            <span class="card-tag">Makeup</span>
+            <h4 class="card-title">Velvet Matte Lipstick</h4>
+            <div class="rating">★★★★☆</div>
+            <div class="flex-between-center">
+              <span class="card-price">Rp 165.000</span>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('Velvet Matte Lipstick',165000,'')">+ Keranjang</button>
+            </div>
+          </div>
+        </a>
+        <a href="product-detail.html?id=3" class="card searchable" data-cat="skincare" data-id="3">
+          <img class="card-img" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400&h=300&fit=crop" alt="Moisturizer">
+          <div class="card-body">
+            <span class="card-tag">Skincare</span>
+            <h4 class="card-title">Hydra Boost Moisturizer</h4>
+            <div class="rating">★★★★★</div>
+            <div class="flex-between-center">
+              <span class="card-price">Rp 320.000</span>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('Hydra Boost Moisturizer',320000,'')">+ Keranjang</button>
+            </div>
+          </div>
+        </a>
+        <a href="product-detail.html?id=4" class="card searchable" data-cat="fragrance" data-id="4">
+          <img class="card-img" src="https://images.unsplash.com/photo-1583209814683-c023dd293cc6?w=400&h=300&fit=crop" alt="Parfum">
+          <div class="card-body">
+            <span class="card-tag">Fragrance</span>
+            <h4 class="card-title">Rose Petal Eau de Parfum</h4>
+            <div class="rating">★★★★★</div>
+            <div class="flex-between-center">
+              <span class="card-price">Rp 450.000</span>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('Rose Petal Eau de Parfum',450000,'')">+ Keranjang</button>
+            </div>
+          </div>
+        </a>
+        <a href="product-detail.html?id=5" class="card searchable" data-cat="bodycare" data-id="5">
+          <img class="card-img" src="https://i.pinimg.com/1200x/bf/d4/b5/bfd4b5331225389552cdc89c12987da4.jpg" alt="Body Lotion">
+          <div class="card-body">
+            <span class="card-tag">Body Care</span>
+            <h4 class="card-title">Silk Body Lotion</h4>
+            <div class="rating">★★★★☆</div>
+            <div class="flex-between-center">
+              <span class="card-price">Rp 198.000</span>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('Silk Body Lotion',198000,'')">+ Keranjang</button>
+            </div>
+          </div>
+        </a>
+        <a href="product-detail.html?id=6" class="card searchable" data-cat="skincare" data-id="6">
+          <img class="card-img" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&h=300&fit=crop" alt="Toner">
+          <div class="card-body">
+            <span class="card-tag">Skincare</span>
+            <h4 class="card-title">Pore Refining Toner</h4>
+            <div class="rating">★★★★★</div>
+            <div class="flex-between-center">
+              <span class="card-price">Rp 175.000</span>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('Pore Refining Toner',175000,'')">+ Keranjang</button>
+            </div>
+          </div>
+        </a>
+        <a href="product-detail.html?id=7" class="card searchable" data-cat="makeup" data-id="7">
+          <img class="card-img" src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=300&fit=crop" alt="Foundation">
+          <div class="card-body">
+            <span class="card-tag">Makeup</span>
+            <h4 class="card-title">Flawless Skin Foundation</h4>
+            <div class="rating">★★★★☆</div>
+            <div class="flex-between-center">
+              <span class="card-price">Rp 245.000</span>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('Flawless Skin Foundation',245000,'')">+ Keranjang</button>
+            </div>
+          </div>
+        </a>
+        <a href="product-detail.html?id=8" class="card searchable" data-cat="bodycare" data-id="8">
+          <img class="card-img" src="https://i.pinimg.com/1200x/2f/b4/ec/2fb4ec621abc229bf09a018dffa0b346.jpg" alt="Body Scrub">
+          <div class="card-body">
+            <span class="card-tag">Body Care</span>
+            <h4 class="card-title">Coffee Body Scrub</h4>
+            <div class="rating">★★★★★</div>
+            <div class="flex-between-center">
+              <span class="card-price">Rp 155.000</span>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('Coffee Body Scrub',155000,'')">+ Keranjang</button>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="pagination">
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">→</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2026 LUMIÈRE Beauty & Lifestyle. All rights reserved.</p></div></div></footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
