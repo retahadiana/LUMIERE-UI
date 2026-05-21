@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembayaran - LUMIÈRE</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar"><div class="container">
+    <a href="index.html" class="nav-logo">LUMI<span>ÈRE</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="products.html">Produk</a></li>
+      <li><a href="articles.html">Artikel</a></li>
+      <li><a href="transaction-history.html">Riwayat</a></li>
+      <li><a href="admin/dashboard.html">Admin</a></li>
+    </ul>
+    <div class="nav-actions"><a href="cart.html" class="nav-cart">🛒<span class="badge cart-badge d-none">0</span></a></div>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div></nav>
+
+  <section class="section pt-40">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Beranda</a> / <a href="cart.html">Keranjang</a> / <span>Pembayaran</span></div>
+
+      <!-- Progress Steps -->
+      <div class="progress-steps">
+        <div class="progress-step"><div class="step-circle step-active">✓</div><span class="fs-08 fw-600 text-pink-dark">Keranjang</span></div>
+        <div class="progress-step"><div class="step-circle step-active">2</div><span class="fs-08 fw-600 text-pink-dark">Pembayaran</span></div>
+        <div class="progress-step"><div class="step-circle step-inactive">3</div><span class="fs-08 text-gray">Konfirmasi</span></div>
+      </div>
+
+      <div class="checkout-grid">
+        <div>
+          <!-- Shipping Info -->
+          <div class="card p-28 mb-24">
+            <h3 class="mb-20">📦 Informasi Pengiriman</h3>
+            <div class="grid-2">
+              <div class="form-group"><label>Nama Lengkap</label><input type="text" class="form-control" value="Reta Hadiana" placeholder="Nama lengkap" title="Nama lengkap"></div>
+              <div class="form-group"><label>No. Telepon</label><input type="tel" class="form-control" value="08123456789" placeholder="No. telepon" title="No. telepon"></div>
+            </div>
+            <div class="form-group"><label>Alamat Lengkap</label><textarea class="form-control" rows="3" placeholder="Alamat lengkap" title="Alamat lengkap">Jl. Mawar Indah No. 45, RT 02/RW 05, Kelurahan Sukamaju</textarea></div>
+            <div class="grid-2">
+              <div class="form-group"><label>Kota</label><input type="text" class="form-control" value="Jakarta Selatan" placeholder="Kota" title="Kota"></div>
+              <div class="form-group"><label>Kode Pos</label><input type="text" class="form-control" value="12345" placeholder="Kode pos" title="Kode pos"></div>
+            </div>
+          </div>
+
+          <!-- Shipping Method -->
+          <div class="card p-28 mb-24">
+            <h3 class="mb-20">🚚 Metode Pengiriman</h3>
+            <div class="option-list">
+              <label class="option-card active">
+                <input type="radio" name="shipping" checked class="option-radio">
+                <div class="flex-1"><strong>Regular (3-5 hari)</strong><p class="text-gray fs-085">Estimasi tiba 5-7 Mei 2026</p></div>
+                <strong>Rp 15.000</strong>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="shipping" class="option-radio">
+                <div class="flex-1"><strong>Express (1-2 hari)</strong><p class="text-gray fs-085">Estimasi tiba 3-4 Mei 2026</p></div>
+                <strong>Rp 30.000</strong>
+              </label>
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <div class="card p-28">
+            <h3 class="mb-20">💳 Metode Pembayaran</h3>
+            <div class="option-list">
+              <label class="option-card active">
+                <input type="radio" name="payment" checked class="option-radio">
+                <strong>Transfer Bank (BCA, Mandiri, BNI)</strong>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="payment" class="option-radio">
+                <strong>E-Wallet (GoPay, OVO, Dana)</strong>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="payment" class="option-radio">
+                <strong>COD (Bayar di Tempat)</strong>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+          <h3>Ringkasan Pesanan</h3>
+          <div class="checkout-summary-items">
+            <div class="checkout-summary-item"><img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=60&h=60&fit=crop" alt=""><div><div class="checkout-summary-title">Glow Radiance Serum</div><div class="checkout-summary-meta">1x Rp 285.000</div></div></div>
+            <div class="checkout-summary-item"><img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=60&h=60&fit=crop" alt=""><div><div class="checkout-summary-title">Velvet Matte Lipstick</div><div class="checkout-summary-meta">2x Rp 165.000</div></div></div>
+            <div class="checkout-summary-item"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=60&h=60&fit=crop" alt=""><div><div class="checkout-summary-title">Hydra Boost Moisturizer</div><div class="checkout-summary-meta">1x Rp 320.000</div></div></div>
+          </div>
+          <div class="summary-row"><span>Subtotal</span><span>Rp 935.000</span></div>
+          <div class="summary-row"><span>Ongkos Kirim</span><span>Rp 15.000</span></div>
+          <div class="summary-row"><span>Diskon</span><span class="discount-green">- Rp 50.000</span></div>
+          <div class="summary-row total"><span>Total</span><span>Rp 900.000</span></div>
+          <button class="btn btn-primary w-100 justify-center mt-20" onclick="showToast('Pesanan berhasil dibuat! 🎉');setTimeout(()=>window.location.href='transaction-history.html',2000)">Bayar Sekarang</button>
+          <p class="text-center fs-08 text-gray mt-12">🔒 Pembayaran aman & terenkripsi</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2026 LUMIÈRE Beauty & Lifestyle. All rights reserved.</p></div></div></footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
