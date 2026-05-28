@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin - LUMIÈRE</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">LUMI<span>ÈRE</span> Admin</div>
+      <ul class="sidebar-menu">
+        <li><a href="dashboard.html" class="active">📊 Dashboard</a></li>
+        <li><a href="manage-articles.html">📝 Kelola Artikel</a></li>
+        <li><a href="manage-products.html">📦 Kelola Produk</a></li>
+        <li><a href="manage-users.html">👥 Kelola Pengguna</a></li>
+        <li><a href="manage-transactions.html">💰 Kelola Transaksi</a></li>
+        <li class="logout"><a href="../index.html">🏠 Kembali ke Website</a></li>
+      </ul>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div><button class="sidebar-toggle hamburger" title="Toggle Sidebar"><span></span><span></span><span></span></button><h1>Dashboard</h1><p class="admin-welcome">Selamat datang kembali, Admin! 👋</p></div>
+        <div class="admin-date"><span>2 Mei 2026</span><div class="admin-avatar">👤</div></div>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid-4 mb-32">
+        <div class="stat-card"><div class="icon pink">💰</div><div class="value">Rp 12.5M</div><div class="label">Pendapatan Bulan Ini</div></div>
+        <div class="stat-card"><div class="icon mauve">📦</div><div class="value">156</div><div class="label">Total Pesanan</div></div>
+        <div class="stat-card"><div class="icon gold">👥</div><div class="value">1,284</div><div class="label">Total Pengguna</div></div>
+        <div class="stat-card"><div class="icon green">📝</div><div class="value">48</div><div class="label">Total Artikel</div></div>
+      </div>
+
+      <div class="grid-2 mb-32">
+        <!-- Recent Orders -->
+        <div class="card p-24">
+          <div class="flex-between">
+            <h3>Pesanan Terbaru</h3>
+            <a href="manage-transactions.html" class="link-primary">Lihat Semua →</a>
+          </div>
+          <div class="table-wrap no-shadow">
+            <table>
+              <thead><tr><th>Order ID</th><th>Pelanggan</th><th>Total</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>#LUM-001</td><td>Anisa R.</td><td>Rp 615K</td><td><span class="status status-info">Dikirim</span></td></tr>
+                <tr><td>#LUM-002</td><td>Dewi K.</td><td>Rp 335K</td><td><span class="status status-success">Selesai</span></td></tr>
+                <tr><td>#LUM-003</td><td>Reta H.</td><td>Rp 465K</td><td><span class="status status-warning">Pending</span></td></tr>
+                <tr><td>#LUM-004</td><td>Mega S.</td><td>Rp 285K</td><td><span class="status status-success">Selesai</span></td></tr>
+                <tr><td>#LUM-005</td><td>Putri A.</td><td>Rp 520K</td><td><span class="status status-info">Diproses</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Popular Products -->
+        <div class="card p-24">
+          <div class="flex-between">
+            <h3>Produk Terpopuler</h3>
+            <a href="manage-products.html" class="link-primary">Lihat Semua →</a>
+          </div>
+          <div class="flex-column">
+            <div class="product-item"><img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=60&h=60&fit=crop" class="product-img" alt=""><div class="product-info"><div class="product-name">Glow Radiance Serum</div><div class="product-sales">128 terjual</div></div><strong class="price-primary">Rp 285K</strong></div>
+            <div class="product-item"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=60&h=60&fit=crop" class="product-img" alt=""><div class="product-info"><div class="product-name">Hydra Boost Moisturizer</div><div class="product-sales">96 terjual</div></div><strong class="price-primary">Rp 320K</strong></div>
+            <div class="product-item"><img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=60&h=60&fit=crop" class="product-img" alt=""><div class="product-info"><div class="product-name">Velvet Matte Lipstick</div><div class="product-sales">84 terjual</div></div><strong class="price-primary">Rp 165K</strong></div>
+            <div class="product-item"><img src="https://images.unsplash.com/photo-1583209814683-c023dd293cc6?w=60&h=60&fit=crop" class="product-img" alt=""><div class="product-info"><div class="product-name">Rose Petal Eau de Parfum</div><div class="product-sales">72 terjual</div></div><strong class="price-primary">Rp 450K</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sales Chart Placeholder -->
+      <div class="card p-24">
+        <h3 class="mb-20">📈 Grafik Penjualan Bulanan</h3>
+        <div class="chart-container">
+          <div class="chart-bar"><div class="height-60"></div><span class="chart-label">Jan</span></div>
+          <div class="chart-bar"><div class="height-45"></div><span class="chart-label">Feb</span></div>
+          <div class="chart-bar"><div class="height-75"></div><span class="chart-label">Mar</span></div>
+          <div class="chart-bar"><div class="height-100 mauve-bg"></div><span class="chart-label">Apr</span></div>
+          <div class="chart-bar"><div class="height-85"></div><span class="chart-label">Mei</span></div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../js/main.js"></script>
+</body>
+</html>
