@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelola Transaksi - LUMIÈRE Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">LUMI<span>ÈRE</span> Admin</div>
+      <ul class="sidebar-menu">
+        <li><a href="dashboard.html">📊 Dashboard</a></li>
+        <li><a href="manage-articles.html">📝 Kelola Artikel</a></li>
+        <li><a href="manage-products.html">📦 Kelola Produk</a></li>
+        <li><a href="manage-users.html">👥 Kelola Pengguna</a></li>
+        <li><a href="manage-transactions.html" class="active">💰 Kelola Transaksi</a></li>
+        <li class="logout"><a href="../index.html">🏠 Kembali ke Website</a></li>
+      </ul>
+    </aside>
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <h1>💰 Kelola Transaksi</h1>
+        <div class="flex gap-12">
+          <select class="form-control w-auto" title="Filter Periode"><option>Bulan Ini</option><option>Minggu Ini</option><option>Hari Ini</option><option>Semua</option></select>
+        </div>
+      </div>
+
+      <div class="grid-4 mb-24">
+        <div class="stat-card"><div class="icon pink">💰</div><div class="value">Rp 12.5M</div><div class="label">Total Pendapatan</div></div>
+        <div class="stat-card"><div class="icon green">✅</div><div class="value">98</div><div class="label">Selesai</div></div>
+        <div class="stat-card"><div class="icon mauve">🔄</div><div class="value">32</div><div class="label">Diproses</div></div>
+        <div class="stat-card"><div class="icon gold">⏳</div><div class="value">26</div><div class="label">Pending</div></div>
+      </div>
+
+      <div class="flex gap-16 mb-24 flex-wrap">
+        <div class="search-bar flex-1 max-w-100"><input type="text" placeholder="Cari order ID atau pelanggan..."></div>
+        <select class="form-control w-auto" title="Filter Status"><option>Semua Status</option><option>Pending</option><option>Diproses</option><option>Dikirim</option><option>Selesai</option><option>Dibatalkan</option></select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Order ID</th><th>Pelanggan</th><th>Produk</th><th>Total</th><th>Pembayaran</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
+          <tbody>
+            <tr class="searchable"><td><strong>#LUM-001</strong></td><td>Anisa Rahma</td><td>2 item</td><td>Rp 615.000</td><td>Transfer Bank</td><td>28 Apr 2026</td><td><span class="status status-info">Dikirim</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('txModal')">👁️</button> <select class="form-control w-auto select-sm" title="Ubah Status" onchange="showToast('Status berhasil diubah!')"><option>Dikirim</option><option>Selesai</option></select></td></tr>
+            <tr class="searchable"><td><strong>#LUM-002</strong></td><td>Dewi Kartika</td><td>1 item</td><td>Rp 335.000</td><td>E-Wallet</td><td>20 Apr 2026</td><td><span class="status status-success">Selesai</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('txModal')">👁️</button></td></tr>
+            <tr class="searchable"><td><strong>#LUM-003</strong></td><td>Reta Hadiana</td><td>1 item</td><td>Rp 465.000</td><td>Transfer Bank</td><td>2 Mei 2026</td><td><span class="status status-warning">Pending</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('txModal')">👁️</button> <select class="form-control w-auto select-sm" title="Ubah Status" onchange="showToast('Status berhasil diubah!')"><option>Pending</option><option>Diproses</option><option>Dibatalkan</option></select></td></tr>
+            <tr class="searchable"><td><strong>#LUM-004</strong></td><td>Mega Sari</td><td>1 item</td><td>Rp 285.000</td><td>COD</td><td>25 Apr 2026</td><td><span class="status status-success">Selesai</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('txModal')">👁️</button></td></tr>
+            <tr class="searchable"><td><strong>#LUM-005</strong></td><td>Putri Amelia</td><td>3 item</td><td>Rp 520.000</td><td>E-Wallet</td><td>1 Mei 2026</td><td><span class="status status-info">Diproses</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('txModal')">👁️</button> <select class="form-control w-auto select-sm" title="Ubah Status" onchange="showToast('Status berhasil diubah!')"><option>Diproses</option><option>Dikirim</option></select></td></tr>
+            <tr class="searchable"><td><strong>#LUM-006</strong></td><td>Rina Putri</td><td>2 item</td><td>Rp 480.000</td><td>Transfer Bank</td><td>30 Apr 2026</td><td><span class="status status-danger">Dibatalkan</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('txModal')">👁️</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination"><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">→</button></div>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="txModal">
+    <div class="modal">
+      <div class="modal-header"><h3>Detail Transaksi</h3><button class="modal-close" onclick="closeModal('txModal')">×</button></div>
+      <div class="mb-16 pb-16 border-bottom">
+        <div class="flex justify-between"><strong>Order #LUM-001</strong><span class="status status-info">Dikirim</span></div>
+        <p class="text-gray fs-085 mt-4">28 April 2026, 14:30 WIB</p>
+      </div>
+      <h4 class="mb-12">Informasi Pelanggan</h4>
+      <div class="mb-16 text-gray fs-09">
+        <p><strong class="text-dark">Anisa Rahma</strong></p>
+        <p>📧 anisa@email.com</p>
+        <p>📞 08123456789</p>
+        <p>📍 Jl. Mawar No. 12, Jakarta Selatan</p>
+      </div>
+      <h4 class="mb-12">Produk</h4>
+      <div class="flex gap-12 mb-8 align-center"><img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=50&h=50&fit=crop" class="img-40" alt=""><div><span class="fs-09">Glow Radiance Serum</span><br><span class="fs-085 text-gray">1x Rp 285.000</span></div></div>
+      <div class="flex gap-12 mb-16 align-center"><img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=50&h=50&fit=crop" class="img-40" alt=""><div><span class="fs-09">Velvet Matte Lipstick</span><br><span class="fs-085 text-gray">2x Rp 165.000</span></div></div>
+      <div class="border-top pt-12">
+        <div class="summary-row"><span>Subtotal</span><span>Rp 615.000</span></div>
+        <div class="summary-row"><span>Ongkir</span><span>Rp 15.000</span></div>
+        <div class="summary-row total"><span>Total</span><span>Rp 630.000</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

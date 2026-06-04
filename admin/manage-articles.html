@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelola Artikel - LUMIÈRE Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">LUMI<span>ÈRE</span> Admin</div>
+      <ul class="sidebar-menu">
+        <li><a href="dashboard.html">📊 Dashboard</a></li>
+        <li><a href="manage-articles.html" class="active">📝 Kelola Artikel</a></li>
+        <li><a href="manage-products.html">📦 Kelola Produk</a></li>
+        <li><a href="manage-users.html">👥 Kelola Pengguna</a></li>
+        <li><a href="manage-transactions.html">💰 Kelola Transaksi</a></li>
+        <li class="logout"><a href="../index.html">🏠 Kembali ke Website</a></li>
+      </ul>
+    </aside>
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <h1>📝 Kelola Artikel</h1>
+        <button class="btn btn-primary" onclick="openModal('articleModal')">+ Tambah Artikel</button>
+      </div>
+
+      <div class="flex gap-16 mb-24 flex-wrap">
+        <div class="search-bar flex-1 max-w-100"><input type="text" placeholder="Cari artikel..."></div>
+        <select class="form-control w-auto" title="Filter Kategori"><option>Semua Kategori</option><option>Skincare</option><option>Makeup</option><option>Lifestyle</option><option>Wellness</option></select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>No</th><th>Judul</th><th>Kategori</th><th>Penulis</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
+          <tbody>
+            <tr class="searchable"><td>1</td><td><strong>10 Langkah Skincare Routine</strong></td><td><span class="card-tag">Skincare</span></td><td>Dr. Sarah</td><td>28 Apr 2026</td><td><span class="status status-success">Publikasi</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('articleModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
+            <tr class="searchable"><td>2</td><td><strong>Makeup Natural Look</strong></td><td><span class="card-tag">Makeup</span></td><td>Bella A.</td><td>25 Apr 2026</td><td><span class="status status-success">Publikasi</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('articleModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
+            <tr class="searchable"><td>3</td><td><strong>Self-Care Sunday</strong></td><td><span class="card-tag">Lifestyle</span></td><td>Rina P.</td><td>22 Apr 2026</td><td><span class="status status-success">Publikasi</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('articleModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
+            <tr class="searchable"><td>4</td><td><strong>Morning Yoga Routine</strong></td><td><span class="card-tag">Wellness</span></td><td>Yoga M.</td><td>16 Apr 2026</td><td><span class="status status-warning">Draft</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('articleModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
+            <tr class="searchable"><td>5</td><td><strong>Pentingnya Sunscreen</strong></td><td><span class="card-tag">Skincare</span></td><td>Dr. Sarah</td><td>19 Apr 2026</td><td><span class="status status-success">Publikasi</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('articleModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination"><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">→</button></div>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="articleModal">
+    <div class="modal">
+      <div class="modal-header"><h3>Tambah / Edit Artikel</h3><button class="modal-close" onclick="closeModal('articleModal')">×</button></div>
+      <div class="form-group"><label>Judul Artikel</label><input type="text" class="form-control" placeholder="Masukkan judul artikel"></div>
+      <div class="form-group"><label>Kategori</label><select class="form-control" title="Pilih kategori artikel"><option>Skincare</option><option>Makeup</option><option>Lifestyle</option><option>Wellness</option></select></div>
+      <div class="form-group"><label>Konten</label><textarea class="form-control" rows="6" placeholder="Tulis konten artikel..."></textarea></div>
+      <div class="form-group"><label>Gambar Cover</label><input type="file" class="form-control" title="Pilih gambar cover"></div>
+      <div class="form-group"><label>Status</label><select class="form-control" title="Pilih status artikel"><option>Publikasi</option><option>Draft</option></select></div>
+      <div class="flex gap-12 justify-end"><button class="btn btn-secondary" onclick="closeModal('articleModal')">Batal</button><button class="btn btn-primary" onclick="closeModal('articleModal');showToast('Artikel berhasil disimpan!')">Simpan</button></div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
