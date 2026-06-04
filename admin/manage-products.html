@@ -22,7 +22,7 @@
     <main class="admin-main">
       <div class="admin-topbar">
         <h1>📦 Kelola Produk</h1>
-        <button class="btn btn-primary" onclick="openModal('productModal')">+ Tambah Produk</button>
+        <button class="btn btn-primary" onclick="openAddModal()">+ Tambah Produk</button>
       </div>
 
       <div class="flex gap-16 mb-24 flex-wrap">
@@ -33,12 +33,8 @@
       <div class="table-wrap">
         <table>
           <thead><tr><th>No</th><th>Produk</th><th>Kategori</th><th>Harga</th><th>Stok</th><th>Status</th><th>Aksi</th></tr></thead>
-          <tbody>
-            <tr class="searchable"><td>1</td><td><div class="flex gap-12 align-center"><img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=50&h=50&fit=crop" class="img-40" alt=""><strong>Glow Radiance Serum</strong></div></td><td>Skincare</td><td>Rp 285.000</td><td>56</td><td><span class="status status-success">Aktif</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('productModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
-            <tr class="searchable"><td>2</td><td><div class="flex gap-12 align-center"><img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=50&h=50&fit=crop" class="img-40" alt=""><strong>Velvet Matte Lipstick</strong></div></td><td>Makeup</td><td>Rp 165.000</td><td>124</td><td><span class="status status-success">Aktif</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('productModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
-            <tr class="searchable"><td>3</td><td><div class="flex gap-12 align-center"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=50&h=50&fit=crop" class="img-40" alt=""><strong>Hydra Boost Moisturizer</strong></div></td><td>Skincare</td><td>Rp 320.000</td><td>38</td><td><span class="status status-success">Aktif</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('productModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
-            <tr class="searchable"><td>4</td><td><div class="flex gap-12 align-center"><img src="https://images.unsplash.com/photo-1583209814683-c023dd293cc6?w=50&h=50&fit=crop" class="img-40" alt=""><strong>Rose Petal Eau de Parfum</strong></div></td><td>Fragrance</td><td>Rp 450.000</td><td>22</td><td><span class="status status-success">Aktif</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('productModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
-            <tr class="searchable"><td>5</td><td><div class="flex gap-12 align-center"><img src="https://images.unsplash.com/photo-1570194065650-d99fb4a38c8a?w=50&h=50&fit=crop" class="img-40" alt=""><strong>Silk Body Lotion</strong></div></td><td>Body Care</td><td>Rp 198.000</td><td>0</td><td><span class="status status-danger">Habis</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('productModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
+          <tbody id="productTableBody">
+            <!-- Data will be rendered here dynamically -->
           </tbody>
         </table>
       </div>
@@ -49,21 +45,142 @@
   <div class="modal-overlay" id="productModal">
     <div class="modal">
       <div class="modal-header"><h3>Tambah / Edit Produk</h3><button class="modal-close" onclick="closeModal('productModal')">×</button></div>
-      <div class="form-group"><label>Nama Produk</label><input type="text" class="form-control" placeholder="Masukkan nama produk"></div>
+      <input type="hidden" id="prodId">
+      <div class="form-group"><label>Nama Produk</label><input type="text" id="prodName" class="form-control" placeholder="Masukkan nama produk"></div>
       <div class="grid-2">
-        <div class="form-group"><label>Kategori</label><select class="form-control" title="Pilih kategori produk"><option>Skincare</option><option>Makeup</option><option>Body Care</option><option>Fragrance</option></select></div>
-        <div class="form-group"><label>Harga (Rp)</label><input type="number" class="form-control" placeholder="285000"></div>
+        <div class="form-group"><label>Kategori</label><select id="prodCategory" class="form-control" title="Pilih kategori produk"><option>Skincare</option><option>Makeup</option><option>Body Care</option><option>Fragrance</option></select></div>
+        <div class="form-group"><label>Harga (Rp)</label><input type="number" id="prodPrice" class="form-control" placeholder="285000"></div>
       </div>
       <div class="grid-2">
-        <div class="form-group"><label>Stok</label><input type="number" class="form-control" placeholder="50"></div>
-        <div class="form-group"><label>Berat (gram)</label><input type="number" class="form-control" placeholder="200"></div>
+        <div class="form-group"><label>Stok</label><input type="number" id="prodStock" class="form-control" placeholder="50"></div>
+        <div class="form-group"><label>Berat (gram)</label><input type="number" id="prodWeight" class="form-control" placeholder="200"></div>
       </div>
-      <div class="form-group"><label>Deskripsi</label><textarea class="form-control" rows="4" placeholder="Deskripsi produk..."></textarea></div>
-      <div class="form-group"><label>Gambar Produk</label><input type="file" class="form-control" title="Pilih gambar produk"></div>
-      <div class="flex gap-12 justify-end"><button class="btn btn-secondary" onclick="closeModal('productModal')">Batal</button><button class="btn btn-primary" onclick="closeModal('productModal');showToast('Produk berhasil disimpan!')">Simpan</button></div>
+      <div class="form-group"><label>Deskripsi</label><textarea id="prodDesc" class="form-control" rows="4" placeholder="Deskripsi produk..."></textarea></div>
+      <div class="form-group"><label>Gambar Produk</label><input type="file" id="prodImg" class="form-control" title="Pilih gambar produk"></div>
+      <div class="flex gap-12 justify-end"><button class="btn btn-secondary" onclick="closeModal('productModal')">Batal</button><button class="btn btn-primary" onclick="saveProduct()">Simpan</button></div>
     </div>
   </div>
 
   <script src="../js/main.js"></script>
+  <script>
+    // Transient cache (in-memory state)
+    let products = [
+      { id: 1, name: 'Glow Radiance Serum', img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=50&h=50&fit=crop', category: 'Skincare', price: 285000, stock: 56, status: 'Aktif' },
+      { id: 2, name: 'Velvet Matte Lipstick', img: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=50&h=50&fit=crop', category: 'Makeup', price: 165000, stock: 124, status: 'Aktif' },
+      { id: 3, name: 'Hydra Boost Moisturizer', img: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=50&h=50&fit=crop', category: 'Skincare', price: 320000, stock: 38, status: 'Aktif' },
+      { id: 4, name: 'Rose Petal Eau de Parfum', img: 'https://images.unsplash.com/photo-1583209814683-c023dd293cc6?w=50&h=50&fit=crop', category: 'Fragrance', price: 450000, stock: 22, status: 'Aktif' },
+      { id: 5, name: 'Silk Body Lotion', img: 'https://images.unsplash.com/photo-1570194065650-d99fb4a38c8a?w=50&h=50&fit=crop', category: 'Body Care', price: 198000, stock: 0, status: 'Habis' }
+    ];
+
+    function formatRupiah(number) {
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('productTableBody');
+      tbody.innerHTML = '';
+      products.forEach((p, index) => {
+        const tr = document.createElement('tr');
+        tr.className = 'searchable';
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>
+            <div class="flex gap-12 align-center">
+              <img src="${p.img}" class="img-40" alt="">
+              <strong>${p.name}</strong>
+            </div>
+          </td>
+          <td>${p.category}</td>
+          <td>${formatRupiah(p.price)}</td>
+          <td>${p.stock}</td>
+          <td><span class="status status-${p.stock > 0 ? 'success' : 'danger'}">${p.stock > 0 ? 'Aktif' : 'Habis'}</span></td>
+          <td>
+            <button class="btn btn-sm btn-secondary" onclick="editProduct(${p.id})">✏️</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteProduct(${p.id})">🗑️</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function clearForm() {
+      document.getElementById('prodId').value = '';
+      document.getElementById('prodName').value = '';
+      document.getElementById('prodCategory').value = 'Skincare';
+      document.getElementById('prodPrice').value = '';
+      document.getElementById('prodStock').value = '';
+      document.getElementById('prodImg').value = '';
+    }
+
+    function openAddModal() {
+      clearForm();
+      openModal('productModal');
+    }
+
+    function editProduct(id) {
+      const p = products.find(x => x.id === id);
+      if(p) {
+        document.getElementById('prodId').value = p.id;
+        document.getElementById('prodName').value = p.name;
+        document.getElementById('prodCategory').value = p.category;
+        document.getElementById('prodPrice').value = p.price;
+        document.getElementById('prodStock').value = p.stock;
+        openModal('productModal');
+      }
+    }
+
+    function deleteProduct(id) {
+      if(confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
+        products = products.filter(x => x.id !== id);
+        renderTable();
+        showToast('Produk berhasil dihapus!');
+      }
+    }
+
+    function saveProduct() {
+      const id = document.getElementById('prodId').value;
+      const name = document.getElementById('prodName').value;
+      const category = document.getElementById('prodCategory').value;
+      const price = parseInt(document.getElementById('prodPrice').value) || 0;
+      const stock = parseInt(document.getElementById('prodStock').value) || 0;
+      
+      if(!name || !price) {
+        alert('Nama dan Harga wajib diisi!');
+        return;
+      }
+
+      if(id) {
+        // Edit existing product
+        const pIndex = products.findIndex(x => x.id == id);
+        if(pIndex !== -1) {
+          products[pIndex].name = name;
+          products[pIndex].category = category;
+          products[pIndex].price = price;
+          products[pIndex].stock = stock;
+        }
+        showToast('Produk berhasil diperbarui!');
+      } else {
+        // Create new product
+        const newId = products.length > 0 ? Math.max(...products.map(x => x.id)) + 1 : 1;
+        products.push({
+          id: newId,
+          name: name,
+          category: category,
+          price: price,
+          stock: stock,
+          img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=50&h=50&fit=crop' // placeholder image
+        });
+        showToast('Produk berhasil ditambahkan!');
+      }
+      
+      closeModal('productModal');
+      renderTable();
+    }
+
+    // Render initial table on load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderTable();
+    });
+  </script>
 </body>
 </html>

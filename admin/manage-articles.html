@@ -22,7 +22,7 @@
     <main class="admin-main">
       <div class="admin-topbar">
         <h1>📝 Kelola Artikel</h1>
-        <button class="btn btn-primary" onclick="openModal('articleModal')">+ Tambah Artikel</button>
+        <button class="btn btn-primary" onclick="openAddModal()">+ Tambah Artikel</button>
       </div>
 
       <div class="flex gap-16 mb-24 flex-wrap">
@@ -33,12 +33,8 @@
       <div class="table-wrap">
         <table>
           <thead><tr><th>No</th><th>Judul</th><th>Kategori</th><th>Penulis</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
-          <tbody>
-            <tr class="searchable"><td>1</td><td><strong>10 Langkah Skincare Routine</strong></td><td><span class="card-tag">Skincare</span></td><td>Dr. Sarah</td><td>28 Apr 2026</td><td><span class="status status-success">Publikasi</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('articleModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
-            <tr class="searchable"><td>2</td><td><strong>Makeup Natural Look</strong></td><td><span class="card-tag">Makeup</span></td><td>Bella A.</td><td>25 Apr 2026</td><td><span class="status status-success">Publikasi</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('articleModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
-            <tr class="searchable"><td>3</td><td><strong>Self-Care Sunday</strong></td><td><span class="card-tag">Lifestyle</span></td><td>Rina P.</td><td>22 Apr 2026</td><td><span class="status status-success">Publikasi</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('articleModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
-            <tr class="searchable"><td>4</td><td><strong>Morning Yoga Routine</strong></td><td><span class="card-tag">Wellness</span></td><td>Yoga M.</td><td>16 Apr 2026</td><td><span class="status status-warning">Draft</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('articleModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
-            <tr class="searchable"><td>5</td><td><strong>Pentingnya Sunscreen</strong></td><td><span class="card-tag">Skincare</span></td><td>Dr. Sarah</td><td>19 Apr 2026</td><td><span class="status status-success">Publikasi</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('articleModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
+          <tbody id="articleTableBody">
+            <!-- Data will be rendered here dynamically -->
           </tbody>
         </table>
       </div>
@@ -50,15 +46,129 @@
   <div class="modal-overlay" id="articleModal">
     <div class="modal">
       <div class="modal-header"><h3>Tambah / Edit Artikel</h3><button class="modal-close" onclick="closeModal('articleModal')">×</button></div>
-      <div class="form-group"><label>Judul Artikel</label><input type="text" class="form-control" placeholder="Masukkan judul artikel"></div>
-      <div class="form-group"><label>Kategori</label><select class="form-control" title="Pilih kategori artikel"><option>Skincare</option><option>Makeup</option><option>Lifestyle</option><option>Wellness</option></select></div>
-      <div class="form-group"><label>Konten</label><textarea class="form-control" rows="6" placeholder="Tulis konten artikel..."></textarea></div>
-      <div class="form-group"><label>Gambar Cover</label><input type="file" class="form-control" title="Pilih gambar cover"></div>
-      <div class="form-group"><label>Status</label><select class="form-control" title="Pilih status artikel"><option>Publikasi</option><option>Draft</option></select></div>
-      <div class="flex gap-12 justify-end"><button class="btn btn-secondary" onclick="closeModal('articleModal')">Batal</button><button class="btn btn-primary" onclick="closeModal('articleModal');showToast('Artikel berhasil disimpan!')">Simpan</button></div>
+      <input type="hidden" id="artId">
+      <div class="form-group"><label>Judul Artikel</label><input type="text" id="artTitle" class="form-control" placeholder="Masukkan judul artikel"></div>
+      <div class="form-group"><label>Kategori</label><select id="artCategory" class="form-control" title="Pilih kategori artikel"><option>Skincare</option><option>Makeup</option><option>Lifestyle</option><option>Wellness</option></select></div>
+      <div class="form-group"><label>Penulis</label><input type="text" id="artAuthor" class="form-control" placeholder="Nama Penulis"></div>
+      <div class="form-group"><label>Konten</label><textarea id="artContent" class="form-control" rows="6" placeholder="Tulis konten artikel..."></textarea></div>
+      <div class="form-group"><label>Status</label><select id="artStatus" class="form-control" title="Pilih status artikel"><option>Publikasi</option><option>Draft</option></select></div>
+      <div class="flex gap-12 justify-end"><button class="btn btn-secondary" onclick="closeModal('articleModal')">Batal</button><button class="btn btn-primary" onclick="saveArticle()">Simpan</button></div>
     </div>
   </div>
 
   <script src="../js/main.js"></script>
+  <script>
+    // Transient cache (in-memory state)
+    let articles = [
+      { id: 1, title: '10 Langkah Skincare Routine', category: 'Skincare', author: 'Dr. Sarah', date: '28 Apr 2026', status: 'Publikasi' },
+      { id: 2, title: 'Makeup Natural Look', category: 'Makeup', author: 'Bella A.', date: '25 Apr 2026', status: 'Publikasi' },
+      { id: 3, title: 'Self-Care Sunday', category: 'Lifestyle', author: 'Rina P.', date: '22 Apr 2026', status: 'Publikasi' },
+      { id: 4, title: 'Morning Yoga Routine', category: 'Wellness', author: 'Yoga M.', date: '16 Apr 2026', status: 'Draft' },
+      { id: 5, title: 'Pentingnya Sunscreen', category: 'Skincare', author: 'Dr. Sarah', date: '19 Apr 2026', status: 'Publikasi' }
+    ];
+
+    function renderTable() {
+      const tbody = document.getElementById('articleTableBody');
+      tbody.innerHTML = '';
+      articles.forEach((a, index) => {
+        const tr = document.createElement('tr');
+        tr.className = 'searchable';
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td><strong>${a.title}</strong></td>
+          <td><span class="card-tag">${a.category}</span></td>
+          <td>${a.author}</td>
+          <td>${a.date}</td>
+          <td><span class="status status-${a.status === 'Publikasi' ? 'success' : 'warning'}">${a.status}</span></td>
+          <td>
+            <button class="btn btn-sm btn-secondary" onclick="editArticle(${a.id})">✏️</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteArticle(${a.id})">🗑️</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function clearForm() {
+      document.getElementById('artId').value = '';
+      document.getElementById('artTitle').value = '';
+      document.getElementById('artCategory').value = 'Skincare';
+      document.getElementById('artAuthor').value = '';
+      document.getElementById('artContent').value = '';
+      document.getElementById('artStatus').value = 'Publikasi';
+    }
+
+    function openAddModal() {
+      clearForm();
+      openModal('articleModal');
+    }
+
+    function editArticle(id) {
+      const a = articles.find(x => x.id === id);
+      if(a) {
+        document.getElementById('artId').value = a.id;
+        document.getElementById('artTitle').value = a.title;
+        document.getElementById('artCategory').value = a.category;
+        document.getElementById('artAuthor').value = a.author;
+        document.getElementById('artStatus').value = a.status;
+        openModal('articleModal');
+      }
+    }
+
+    function deleteArticle(id) {
+      if(confirm('Apakah Anda yakin ingin menghapus artikel ini?')) {
+        articles = articles.filter(x => x.id !== id);
+        renderTable();
+        showToast('Artikel berhasil dihapus!');
+      }
+    }
+
+    function saveArticle() {
+      const id = document.getElementById('artId').value;
+      const title = document.getElementById('artTitle').value;
+      const category = document.getElementById('artCategory').value;
+      const author = document.getElementById('artAuthor').value || 'Admin';
+      const status = document.getElementById('artStatus').value;
+      
+      if(!title) {
+        alert('Judul Artikel wajib diisi!');
+        return;
+      }
+
+      if(id) {
+        // Edit existing article
+        const aIndex = articles.findIndex(x => x.id == id);
+        if(aIndex !== -1) {
+          articles[aIndex].title = title;
+          articles[aIndex].category = category;
+          articles[aIndex].author = author;
+          articles[aIndex].status = status;
+        }
+        showToast('Artikel berhasil diperbarui!');
+      } else {
+        // Create new article
+        const newId = articles.length > 0 ? Math.max(...articles.map(x => x.id)) + 1 : 1;
+        const now = new Date();
+        const dateStr = `${now.getDate()} ${now.toLocaleString('id-ID', { month: 'short' })} ${now.getFullYear()}`;
+        articles.push({
+          id: newId,
+          title: title,
+          category: category,
+          author: author,
+          date: dateStr,
+          status: status
+        });
+        showToast('Artikel berhasil ditambahkan!');
+      }
+      
+      closeModal('articleModal');
+      renderTable();
+    }
+
+    // Render initial table on load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderTable();
+    });
+  </script>
 </body>
 </html>

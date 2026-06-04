@@ -24,6 +24,7 @@
         <h1>💰 Kelola Transaksi</h1>
         <div class="flex gap-12">
           <select class="form-control w-auto" title="Filter Periode"><option>Bulan Ini</option><option>Minggu Ini</option><option>Hari Ini</option><option>Semua</option></select>
+          <button class="btn btn-primary" onclick="openAddTxModal()">+ Tambah Transaksi</button>
         </div>
       </div>
 
@@ -42,13 +43,8 @@
       <div class="table-wrap">
         <table>
           <thead><tr><th>Order ID</th><th>Pelanggan</th><th>Produk</th><th>Total</th><th>Pembayaran</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
-          <tbody>
-            <tr class="searchable"><td><strong>#LUM-001</strong></td><td>Anisa Rahma</td><td>2 item</td><td>Rp 615.000</td><td>Transfer Bank</td><td>28 Apr 2026</td><td><span class="status status-info">Dikirim</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('txModal')">👁️</button> <select class="form-control w-auto select-sm" title="Ubah Status" onchange="showToast('Status berhasil diubah!')"><option>Dikirim</option><option>Selesai</option></select></td></tr>
-            <tr class="searchable"><td><strong>#LUM-002</strong></td><td>Dewi Kartika</td><td>1 item</td><td>Rp 335.000</td><td>E-Wallet</td><td>20 Apr 2026</td><td><span class="status status-success">Selesai</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('txModal')">👁️</button></td></tr>
-            <tr class="searchable"><td><strong>#LUM-003</strong></td><td>Reta Hadiana</td><td>1 item</td><td>Rp 465.000</td><td>Transfer Bank</td><td>2 Mei 2026</td><td><span class="status status-warning">Pending</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('txModal')">👁️</button> <select class="form-control w-auto select-sm" title="Ubah Status" onchange="showToast('Status berhasil diubah!')"><option>Pending</option><option>Diproses</option><option>Dibatalkan</option></select></td></tr>
-            <tr class="searchable"><td><strong>#LUM-004</strong></td><td>Mega Sari</td><td>1 item</td><td>Rp 285.000</td><td>COD</td><td>25 Apr 2026</td><td><span class="status status-success">Selesai</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('txModal')">👁️</button></td></tr>
-            <tr class="searchable"><td><strong>#LUM-005</strong></td><td>Putri Amelia</td><td>3 item</td><td>Rp 520.000</td><td>E-Wallet</td><td>1 Mei 2026</td><td><span class="status status-info">Diproses</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('txModal')">👁️</button> <select class="form-control w-auto select-sm" title="Ubah Status" onchange="showToast('Status berhasil diubah!')"><option>Diproses</option><option>Dikirim</option></select></td></tr>
-            <tr class="searchable"><td><strong>#LUM-006</strong></td><td>Rina Putri</td><td>2 item</td><td>Rp 480.000</td><td>Transfer Bank</td><td>30 Apr 2026</td><td><span class="status status-danger">Dibatalkan</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('txModal')">👁️</button></td></tr>
+          <tbody id="txTableBody">
+            <!-- Data will be rendered here dynamically -->
           </tbody>
         </table>
       </div>
@@ -60,27 +56,172 @@
     <div class="modal">
       <div class="modal-header"><h3>Detail Transaksi</h3><button class="modal-close" onclick="closeModal('txModal')">×</button></div>
       <div class="mb-16 pb-16 border-bottom">
-        <div class="flex justify-between"><strong>Order #LUM-001</strong><span class="status status-info">Dikirim</span></div>
-        <p class="text-gray fs-085 mt-4">28 April 2026, 14:30 WIB</p>
+        <div class="flex justify-between"><strong id="viewTxId">Order #LUM-000</strong><span id="viewTxStatus" class="status status-info">Status</span></div>
+        <p class="text-gray fs-085 mt-4" id="viewTxDate">Tanggal</p>
       </div>
       <h4 class="mb-12">Informasi Pelanggan</h4>
       <div class="mb-16 text-gray fs-09">
-        <p><strong class="text-dark">Anisa Rahma</strong></p>
-        <p>📧 anisa@email.com</p>
-        <p>📞 08123456789</p>
-        <p>📍 Jl. Mawar No. 12, Jakarta Selatan</p>
+        <p><strong class="text-dark" id="viewTxCustomer">Nama</strong></p>
+        <p>📧 <span id="viewTxEmail">email@email.com</span></p>
+        <p>📍 Jl. Contoh No. 123</p>
       </div>
       <h4 class="mb-12">Produk</h4>
-      <div class="flex gap-12 mb-8 align-center"><img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=50&h=50&fit=crop" class="img-40" alt=""><div><span class="fs-09">Glow Radiance Serum</span><br><span class="fs-085 text-gray">1x Rp 285.000</span></div></div>
-      <div class="flex gap-12 mb-16 align-center"><img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=50&h=50&fit=crop" class="img-40" alt=""><div><span class="fs-09">Velvet Matte Lipstick</span><br><span class="fs-085 text-gray">2x Rp 165.000</span></div></div>
+      <div id="viewTxProducts">
+        <div class="flex gap-12 mb-8 align-center"><div><span class="fs-09" id="viewTxItemDesc">Item</span></div></div>
+      </div>
       <div class="border-top pt-12">
-        <div class="summary-row"><span>Subtotal</span><span>Rp 615.000</span></div>
-        <div class="summary-row"><span>Ongkir</span><span>Rp 15.000</span></div>
-        <div class="summary-row total"><span>Total</span><span>Rp 630.000</span></div>
+        <div class="summary-row"><span>Pembayaran</span><span id="viewTxPayment">Transfer Bank</span></div>
+        <div class="summary-row total"><span>Total</span><span id="viewTxTotal">Rp 0</span></div>
       </div>
     </div>
   </div>
 
+  <div class="modal-overlay" id="addTxModal">
+    <div class="modal">
+      <div class="modal-header"><h3>Tambah Transaksi</h3><button class="modal-close" onclick="closeModal('addTxModal')">×</button></div>
+      <div class="form-group"><label>Nama Pelanggan</label><input type="text" id="addTxCustomer" class="form-control" placeholder="Nama Pelanggan"></div>
+      <div class="form-group"><label>Total (Rp)</label><input type="number" id="addTxTotal" class="form-control" placeholder="100000"></div>
+      <div class="form-group"><label>Metode Pembayaran</label><select id="addTxPayment" class="form-control"><option>Transfer Bank</option><option>E-Wallet</option><option>COD</option></select></div>
+      <div class="form-group"><label>Status</label><select id="addTxStatus" class="form-control"><option>Pending</option><option>Diproses</option><option>Dikirim</option><option>Selesai</option><option>Dibatalkan</option></select></div>
+      <div class="flex gap-12 justify-end"><button class="btn btn-secondary" onclick="closeModal('addTxModal')">Batal</button><button class="btn btn-primary" onclick="saveTransaction()">Simpan</button></div>
+    </div>
+  </div>
+
   <script src="../js/main.js"></script>
+  <script>
+    // Transient cache (in-memory state)
+    let transactions = [
+      { id: 'LUM-001', customer: 'Anisa Rahma', items: '2 item', total: 615000, payment: 'Transfer Bank', date: '28 Apr 2026', status: 'Dikirim' },
+      { id: 'LUM-002', customer: 'Dewi Kartika', items: '1 item', total: 335000, payment: 'E-Wallet', date: '20 Apr 2026', status: 'Selesai' },
+      { id: 'LUM-003', customer: 'Reta Hadiana', items: '1 item', total: 465000, payment: 'Transfer Bank', date: '2 Mei 2026', status: 'Pending' },
+      { id: 'LUM-004', customer: 'Mega Sari', items: '1 item', total: 285000, payment: 'COD', date: '25 Apr 2026', status: 'Selesai' },
+      { id: 'LUM-005', customer: 'Putri Amelia', items: '3 item', total: 520000, payment: 'E-Wallet', date: '1 Mei 2026', status: 'Diproses' },
+      { id: 'LUM-006', customer: 'Rina Putri', items: '2 item', total: 480000, payment: 'Transfer Bank', date: '30 Apr 2026', status: 'Dibatalkan' }
+    ];
+
+    function formatRupiah(number) {
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+    }
+
+    function getStatusClass(status) {
+      if (status === 'Selesai') return 'success';
+      if (status === 'Pending') return 'warning';
+      if (status === 'Diproses' || status === 'Dikirim') return 'info';
+      if (status === 'Dibatalkan') return 'danger';
+      return 'secondary';
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('txTableBody');
+      tbody.innerHTML = '';
+      transactions.forEach((tx) => {
+        const tr = document.createElement('tr');
+        tr.className = 'searchable';
+        tr.innerHTML = `
+          <td><strong>#${tx.id}</strong></td>
+          <td>${tx.customer}</td>
+          <td>${tx.items}</td>
+          <td>${formatRupiah(tx.total)}</td>
+          <td>${tx.payment}</td>
+          <td>${tx.date}</td>
+          <td><span class="status status-${getStatusClass(tx.status)}">${tx.status}</span></td>
+          <td>
+            <button class="btn btn-sm btn-secondary" onclick="viewTransaction('${tx.id}')">👁️</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteTransaction('${tx.id}')">🗑️</button>
+            <select class="form-control w-auto select-sm" style="margin-left: 4px;" title="Ubah Status" onchange="updateStatus('${tx.id}', this.value)">
+              <option value="Pending" ${tx.status === 'Pending' ? 'selected' : ''}>Pending</option>
+              <option value="Diproses" ${tx.status === 'Diproses' ? 'selected' : ''}>Diproses</option>
+              <option value="Dikirim" ${tx.status === 'Dikirim' ? 'selected' : ''}>Dikirim</option>
+              <option value="Selesai" ${tx.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
+              <option value="Dibatalkan" ${tx.status === 'Dibatalkan' ? 'selected' : ''}>Dibatalkan</option>
+            </select>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function viewTransaction(id) {
+      const tx = transactions.find(x => x.id === id);
+      if(tx) {
+        document.getElementById('viewTxId').textContent = 'Order #' + tx.id;
+        document.getElementById('viewTxStatus').className = 'status status-' + getStatusClass(tx.status);
+        document.getElementById('viewTxStatus').textContent = tx.status;
+        document.getElementById('viewTxDate').textContent = tx.date;
+        document.getElementById('viewTxCustomer').textContent = tx.customer;
+        document.getElementById('viewTxEmail').textContent = tx.customer.split(' ')[0].toLowerCase() + '@email.com';
+        document.getElementById('viewTxItemDesc').textContent = tx.items + ' (Data dummy)';
+        document.getElementById('viewTxPayment').textContent = tx.payment;
+        document.getElementById('viewTxTotal').textContent = formatRupiah(tx.total);
+        openModal('txModal');
+      }
+    }
+
+    function updateStatus(id, newStatus) {
+      const tx = transactions.find(x => x.id === id);
+      if(tx) {
+        tx.status = newStatus;
+        renderTable();
+        showToast('Status berhasil diubah!');
+      }
+    }
+
+    function deleteTransaction(id) {
+      if(confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) {
+        transactions = transactions.filter(x => x.id !== id);
+        renderTable();
+        showToast('Transaksi berhasil dihapus!');
+      }
+    }
+
+    function openAddTxModal() {
+      document.getElementById('addTxCustomer').value = '';
+      document.getElementById('addTxTotal').value = '';
+      document.getElementById('addTxPayment').value = 'Transfer Bank';
+      document.getElementById('addTxStatus').value = 'Pending';
+      openModal('addTxModal');
+    }
+
+    function saveTransaction() {
+      const customer = document.getElementById('addTxCustomer').value;
+      const total = parseInt(document.getElementById('addTxTotal').value) || 0;
+      const payment = document.getElementById('addTxPayment').value;
+      const status = document.getElementById('addTxStatus').value;
+      
+      if(!customer || !total) {
+        alert('Pelanggan dan Total wajib diisi!');
+        return;
+      }
+
+      const now = new Date();
+      const dateStr = `${now.getDate()} ${now.toLocaleString('id-ID', { month: 'short' })} ${now.getFullYear()}`;
+      
+      // Generate ID like LUM-007
+      const maxNum = transactions.reduce((max, tx) => {
+        const num = parseInt(tx.id.replace('LUM-', ''));
+        return num > max ? num : max;
+      }, 0);
+      const newId = 'LUM-' + String(maxNum + 1).padStart(3, '0');
+
+      transactions.push({
+        id: newId,
+        customer: customer,
+        items: '1 item',
+        total: total,
+        payment: payment,
+        date: dateStr,
+        status: status
+      });
+      
+      showToast('Transaksi berhasil ditambahkan!');
+      closeModal('addTxModal');
+      renderTable();
+    }
+
+    // Render initial table on load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderTable();
+    });
+  </script>
 </body>
 </html>

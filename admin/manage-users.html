@@ -22,7 +22,7 @@
     <main class="admin-main">
       <div class="admin-topbar">
         <h1>👥 Kelola Pengguna</h1>
-        <button class="btn btn-primary" onclick="openModal('userModal')">+ Tambah Pengguna</button>
+        <button class="btn btn-primary" onclick="openAddModal()">+ Tambah Pengguna</button>
       </div>
 
       <div class="grid-4 mb-24">
@@ -40,12 +40,8 @@
       <div class="table-wrap">
         <table>
           <thead><tr><th>No</th><th>Nama</th><th>Email</th><th>Role</th><th>Bergabung</th><th>Status</th><th>Aksi</th></tr></thead>
-          <tbody>
-            <tr class="searchable"><td>1</td><td><div class="flex gap-12 align-center"><div class="avatar avatar-pink">👤</div><strong>Reta Hadiana</strong></div></td><td>reta@email.com</td><td><span class="status status-info">Admin</span></td><td>1 Jan 2026</td><td><span class="status status-success">Aktif</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('userModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
-            <tr class="searchable"><td>2</td><td><div class="flex gap-12 align-center"><div class="avatar avatar-mauve">👤</div><strong>Anisa Rahma</strong></div></td><td>anisa@email.com</td><td><span class="status status-success">Customer</span></td><td>15 Feb 2026</td><td><span class="status status-success">Aktif</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('userModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
-            <tr class="searchable"><td>3</td><td><div class="flex gap-12 align-center"><div class="avatar avatar-gold">👤</div><strong>Dewi Kartika</strong></div></td><td>dewi@email.com</td><td><span class="status status-success">Customer</span></td><td>20 Mar 2026</td><td><span class="status status-success">Aktif</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('userModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
-            <tr class="searchable"><td>4</td><td><div class="flex gap-12 align-center"><div class="avatar avatar-pink">👤</div><strong>Mega Sari</strong></div></td><td>mega@email.com</td><td><span class="status status-success">Customer</span></td><td>5 Apr 2026</td><td><span class="status status-danger">Nonaktif</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('userModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
-            <tr class="searchable"><td>5</td><td><div class="flex gap-12 align-center"><div class="avatar avatar-mauve">👤</div><strong>Bella Amelia</strong></div></td><td>bella@email.com</td><td><span class="status status-info">Admin</span></td><td>10 Jan 2026</td><td><span class="status status-success">Aktif</span></td><td><button class="btn btn-sm btn-secondary" onclick="openModal('userModal')">✏️</button> <button class="btn btn-sm btn-danger">🗑️</button></td></tr>
+          <tbody id="userTableBody">
+            <!-- Data will be rendered here dynamically -->
           </tbody>
         </table>
       </div>
@@ -56,19 +52,142 @@
   <div class="modal-overlay" id="userModal">
     <div class="modal">
       <div class="modal-header"><h3>Tambah / Edit Pengguna</h3><button class="modal-close" onclick="closeModal('userModal')">×</button></div>
+      <input type="hidden" id="userId">
       <div class="grid-2">
-        <div class="form-group"><label>Nama Lengkap</label><input type="text" class="form-control" placeholder="Nama lengkap"></div>
-        <div class="form-group"><label>Email</label><input type="email" class="form-control" placeholder="email@example.com"></div>
+        <div class="form-group"><label>Nama Lengkap</label><input type="text" id="userName" class="form-control" placeholder="Nama lengkap"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="userEmail" class="form-control" placeholder="email@example.com"></div>
       </div>
       <div class="grid-2">
-        <div class="form-group"><label>Role</label><select class="form-control" title="Pilih role pengguna"><option>Customer</option><option>Admin</option></select></div>
-        <div class="form-group"><label>Status</label><select class="form-control" title="Pilih status pengguna"><option>Aktif</option><option>Nonaktif</option></select></div>
+        <div class="form-group"><label>Role</label><select id="userRole" class="form-control" title="Pilih role pengguna"><option>Customer</option><option>Admin</option></select></div>
+        <div class="form-group"><label>Status</label><select id="userStatus" class="form-control" title="Pilih status pengguna"><option>Aktif</option><option>Nonaktif</option></select></div>
       </div>
-      <div class="form-group"><label>Password</label><input type="password" class="form-control" placeholder="••••••••"></div>
-      <div class="flex gap-12 justify-end"><button class="btn btn-secondary" onclick="closeModal('userModal')">Batal</button><button class="btn btn-primary" onclick="closeModal('userModal');showToast('Pengguna berhasil disimpan!')">Simpan</button></div>
+      <div class="form-group"><label>Password</label><input type="password" id="userPassword" class="form-control" placeholder="••••••••"></div>
+      <div class="flex gap-12 justify-end"><button class="btn btn-secondary" onclick="closeModal('userModal')">Batal</button><button class="btn btn-primary" onclick="saveUser()">Simpan</button></div>
     </div>
   </div>
 
   <script src="../js/main.js"></script>
+  <script>
+    // Transient cache (in-memory state)
+    let users = [
+      { id: 1, name: 'Reta Hadiana', email: 'reta@email.com', role: 'Admin', date: '1 Jan 2026', status: 'Aktif', avatarColor: 'pink' },
+      { id: 2, name: 'Anisa Rahma', email: 'anisa@email.com', role: 'Customer', date: '15 Feb 2026', status: 'Aktif', avatarColor: 'mauve' },
+      { id: 3, name: 'Dewi Kartika', email: 'dewi@email.com', role: 'Customer', date: '20 Mar 2026', status: 'Aktif', avatarColor: 'gold' },
+      { id: 4, name: 'Mega Sari', email: 'mega@email.com', role: 'Customer', date: '5 Apr 2026', status: 'Nonaktif', avatarColor: 'pink' },
+      { id: 5, name: 'Bella Amelia', email: 'bella@email.com', role: 'Admin', date: '10 Jan 2026', status: 'Aktif', avatarColor: 'mauve' }
+    ];
+
+    function renderTable() {
+      const tbody = document.getElementById('userTableBody');
+      tbody.innerHTML = '';
+      users.forEach((u, index) => {
+        const tr = document.createElement('tr');
+        tr.className = 'searchable';
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>
+            <div class="flex gap-12 align-center">
+              <div class="avatar avatar-${u.avatarColor}">👤</div>
+              <strong>${u.name}</strong>
+            </div>
+          </td>
+          <td>${u.email}</td>
+          <td><span class="status status-${u.role === 'Admin' ? 'info' : 'success'}">${u.role}</span></td>
+          <td>${u.date}</td>
+          <td><span class="status status-${u.status === 'Aktif' ? 'success' : 'danger'}">${u.status}</span></td>
+          <td>
+            <button class="btn btn-sm btn-secondary" onclick="editUser(${u.id})">✏️</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteUser(${u.id})">🗑️</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function clearForm() {
+      document.getElementById('userId').value = '';
+      document.getElementById('userName').value = '';
+      document.getElementById('userEmail').value = '';
+      document.getElementById('userRole').value = 'Customer';
+      document.getElementById('userStatus').value = 'Aktif';
+      document.getElementById('userPassword').value = '';
+    }
+
+    function openAddModal() {
+      clearForm();
+      openModal('userModal');
+    }
+
+    function editUser(id) {
+      const u = users.find(x => x.id === id);
+      if(u) {
+        document.getElementById('userId').value = u.id;
+        document.getElementById('userName').value = u.name;
+        document.getElementById('userEmail').value = u.email;
+        document.getElementById('userRole').value = u.role;
+        document.getElementById('userStatus').value = u.status;
+        document.getElementById('userPassword').value = ''; // leave blank
+        openModal('userModal');
+      }
+    }
+
+    function deleteUser(id) {
+      if(confirm('Apakah Anda yakin ingin menghapus pengguna ini?')) {
+        users = users.filter(x => x.id !== id);
+        renderTable();
+        showToast('Pengguna berhasil dihapus!');
+      }
+    }
+
+    function saveUser() {
+      const id = document.getElementById('userId').value;
+      const name = document.getElementById('userName').value;
+      const email = document.getElementById('userEmail').value;
+      const role = document.getElementById('userRole').value;
+      const status = document.getElementById('userStatus').value;
+      
+      if(!name || !email) {
+        alert('Nama dan Email wajib diisi!');
+        return;
+      }
+
+      if(id) {
+        // Edit existing user
+        const uIndex = users.findIndex(x => x.id == id);
+        if(uIndex !== -1) {
+          users[uIndex].name = name;
+          users[uIndex].email = email;
+          users[uIndex].role = role;
+          users[uIndex].status = status;
+        }
+        showToast('Pengguna berhasil diperbarui!');
+      } else {
+        // Create new user
+        const newId = users.length > 0 ? Math.max(...users.map(x => x.id)) + 1 : 1;
+        const now = new Date();
+        const dateStr = `${now.getDate()} ${now.toLocaleString('id-ID', { month: 'short' })} ${now.getFullYear()}`;
+        const colors = ['pink', 'mauve', 'gold'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        users.push({
+          id: newId,
+          name: name,
+          email: email,
+          role: role,
+          date: dateStr,
+          status: status,
+          avatarColor: randomColor
+        });
+        showToast('Pengguna berhasil ditambahkan!');
+      }
+      
+      closeModal('userModal');
+      renderTable();
+    }
+
+    // Render initial table on load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderTable();
+    });
+  </script>
 </body>
 </html>
