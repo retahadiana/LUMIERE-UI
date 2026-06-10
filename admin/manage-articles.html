@@ -44,15 +44,46 @@
 
   <!-- Modal -->
   <div class="modal-overlay" id="articleModal">
-    <div class="modal">
+    <div class="modal" style="width: 800px; max-width: 95%;">
       <div class="modal-header"><h3>Tambah / Edit Artikel</h3><button class="modal-close" onclick="closeModal('articleModal')">×</button></div>
-      <input type="hidden" id="artId">
-      <div class="form-group"><label>Judul Artikel</label><input type="text" id="artTitle" class="form-control" placeholder="Masukkan judul artikel"></div>
-      <div class="form-group"><label>Kategori</label><select id="artCategory" class="form-control" title="Pilih kategori artikel"><option>Skincare</option><option>Makeup</option><option>Lifestyle</option><option>Wellness</option></select></div>
-      <div class="form-group"><label>Penulis</label><input type="text" id="artAuthor" class="form-control" placeholder="Nama Penulis"></div>
-      <div class="form-group"><label>Konten</label><textarea id="artContent" class="form-control" rows="6" placeholder="Tulis konten artikel..."></textarea></div>
-      <div class="form-group"><label>Status</label><select id="artStatus" class="form-control" title="Pilih status artikel"><option>Publikasi</option><option>Draft</option></select></div>
-      <div class="flex gap-12 justify-end"><button class="btn btn-secondary" onclick="closeModal('articleModal')">Batal</button><button class="btn btn-primary" onclick="saveArticle()">Simpan</button></div>
+      <div class="modal-body" style="max-height: 70vh; overflow-y: auto; padding-right: 8px;">
+        <input type="hidden" id="artId">
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <!-- Kiri -->
+          <div>
+            <div class="form-group">
+              <label>Gambar Artikel</label>
+              <img id="artImagePreview" src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=260&fit=crop" alt="Preview" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;">
+              <input type="file" id="artImage" class="form-control" accept="image/*" onchange="previewImage(this, 'artImagePreview', 'artImageUrl')">
+              <input type="hidden" id="artImageUrl" value="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=260&fit=crop">
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select id="artStatus" class="form-control" title="Pilih status artikel"><option>Publikasi</option><option>Draft</option></select>
+            </div>
+            <div class="form-group">
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <input type="checkbox" id="artFeatured"> Jadikan Artikel Pilihan (Featured)
+              </label>
+            </div>
+          </div>
+          
+          <!-- Kanan -->
+          <div>
+            <div class="form-group"><label>Judul Artikel</label><input type="text" id="artTitle" class="form-control" placeholder="Masukkan judul artikel"></div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div class="form-group"><label>Kategori</label><select id="artCategory" class="form-control" title="Pilih kategori artikel"><option>Skincare</option><option>Makeup</option><option>Lifestyle</option><option>Wellness</option></select></div>
+              <div class="form-group"><label>Waktu Baca (Menit)</label><input type="number" id="artReadTime" class="form-control" placeholder="Contoh: 5"></div>
+            </div>
+            <div class="form-group"><label>Penulis</label><input type="text" id="artAuthor" class="form-control" placeholder="Nama Penulis"></div>
+            <div class="form-group"><label>Deskripsi Singkat</label><textarea id="artDescription" class="form-control" rows="3" placeholder="Tulis deskripsi singkat untuk ditampilkan di halaman artikel..."></textarea></div>
+          </div>
+        </div>
+
+        <div class="form-group mt-16"><label>Konten Lengkap</label><textarea id="artContent" class="form-control" rows="8" placeholder="Tulis konten artikel lengkap..."></textarea></div>
+      </div>
+      <div class="flex gap-12 justify-end mt-16" style="padding-top: 16px; border-top: 1px solid var(--border);"><button class="btn btn-secondary" onclick="closeModal('articleModal')">Batal</button><button class="btn btn-primary" onclick="saveArticle()">Simpan</button></div>
     </div>
   </div>
 
@@ -60,12 +91,23 @@
   <script>
     // Transient cache (in-memory state)
     let articles = [
-      { id: 1, title: '10 Langkah Skincare Routine', category: 'Skincare', author: 'Dr. Sarah', date: '28 Apr 2026', status: 'Publikasi' },
-      { id: 2, title: 'Makeup Natural Look', category: 'Makeup', author: 'Bella A.', date: '25 Apr 2026', status: 'Publikasi' },
-      { id: 3, title: 'Self-Care Sunday', category: 'Lifestyle', author: 'Rina P.', date: '22 Apr 2026', status: 'Publikasi' },
-      { id: 4, title: 'Morning Yoga Routine', category: 'Wellness', author: 'Yoga M.', date: '16 Apr 2026', status: 'Draft' },
-      { id: 5, title: 'Pentingnya Sunscreen', category: 'Skincare', author: 'Dr. Sarah', date: '19 Apr 2026', status: 'Publikasi' }
+      { id: 1, title: '10 Langkah Skincare Routine untuk Kulit Glowing Sepanjang Hari', category: 'Skincare', author: 'Dr. Sarah', date: '28 Apr 2026', status: 'Publikasi', image: 'https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=500&h=320&fit=crop', description: 'Panduan lengkap membangun skincare routine yang tepat untuk semua jenis kulit. Dari pembersih hingga sunscreen, setiap langkah penting untuk kulit sehat dan bercahaya.', readTime: 5, featured: true, content: '' },
+      { id: 2, title: 'Makeup Natural Look yang Cocok untuk Sehari-hari', category: 'Makeup', author: 'Bella A.', date: '25 Apr 2026', status: 'Publikasi', image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=260&fit=crop', description: 'Tutorial makeup natural yang simpel namun tetap cantik untuk aktivitas harian...', readTime: 4, featured: false, content: '' },
+      { id: 3, title: 'Self-Care Sunday: Ritual Relaksasi di Rumah', category: 'Lifestyle', author: 'Rina P.', date: '22 Apr 2026', status: 'Publikasi', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=260&fit=crop', description: 'Ide-ide self-care yang bisa kamu lakukan di rumah untuk me-time yang berkualitas...', readTime: 6, featured: false, content: '' },
+      { id: 4, title: 'Morning Yoga: Awali Hari dengan Energi Positif', category: 'Wellness', author: 'Yoga M.', date: '16 Apr 2026', status: 'Draft', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=260&fit=crop', description: 'Rutinitas yoga pagi yang bisa meningkatkan mood dan energi untuk hari yang produktif...', readTime: 5, featured: false, content: '' },
+      { id: 5, title: 'Pentingnya Sunscreen: Perlindungan Kulit dari UV', category: 'Skincare', author: 'Dr. Sarah', date: '19 Apr 2026', status: 'Publikasi', image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&h=260&fit=crop', description: 'Mengapa sunscreen adalah langkah skincare yang tidak boleh terlewatkan setiap hari...', readTime: 3, featured: false, content: '' }
     ];
+
+    function previewImage(input, previewId, urlId) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById(previewId).src = e.target.result;
+          document.getElementById(urlId).value = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
 
     function renderTable() {
       const tbody = document.getElementById('articleTableBody');
@@ -75,7 +117,15 @@
         tr.className = 'searchable';
         tr.innerHTML = `
           <td>${index + 1}</td>
-          <td><strong>${a.title}</strong></td>
+          <td>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <img src="${a.image}" alt="Thumb" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+              <div>
+                <strong>${a.title}</strong>
+                ${a.featured ? '<br><span style="font-size: 0.8em; color: #f59e0b;">✨ Pilihan</span>' : ''}
+              </div>
+            </div>
+          </td>
           <td><span class="card-tag">${a.category}</span></td>
           <td>${a.author}</td>
           <td>${a.date}</td>
@@ -96,6 +146,12 @@
       document.getElementById('artAuthor').value = '';
       document.getElementById('artContent').value = '';
       document.getElementById('artStatus').value = 'Publikasi';
+      document.getElementById('artReadTime').value = '';
+      document.getElementById('artDescription').value = '';
+      document.getElementById('artFeatured').checked = false;
+      document.getElementById('artImageUrl').value = 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=260&fit=crop';
+      document.getElementById('artImagePreview').src = 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=260&fit=crop';
+      document.getElementById('artImage').value = '';
     }
 
     function openAddModal() {
@@ -111,6 +167,13 @@
         document.getElementById('artCategory').value = a.category;
         document.getElementById('artAuthor').value = a.author;
         document.getElementById('artStatus').value = a.status;
+        document.getElementById('artReadTime').value = a.readTime || '';
+        document.getElementById('artDescription').value = a.description || '';
+        document.getElementById('artFeatured').checked = a.featured || false;
+        document.getElementById('artImageUrl').value = a.image || 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=260&fit=crop';
+        document.getElementById('artImagePreview').src = a.image || 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=260&fit=crop';
+        document.getElementById('artImage').value = ''; // Cannot prefill file input
+        document.getElementById('artContent').value = a.content || '';
         openModal('articleModal');
       }
     }
@@ -129,6 +192,11 @@
       const category = document.getElementById('artCategory').value;
       const author = document.getElementById('artAuthor').value || 'Admin';
       const status = document.getElementById('artStatus').value;
+      const content = document.getElementById('artContent').value;
+      const readTime = document.getElementById('artReadTime').value;
+      const description = document.getElementById('artDescription').value;
+      const featured = document.getElementById('artFeatured').checked;
+      const image = document.getElementById('artImageUrl').value;
       
       if(!title) {
         alert('Judul Artikel wajib diisi!');
@@ -143,6 +211,11 @@
           articles[aIndex].category = category;
           articles[aIndex].author = author;
           articles[aIndex].status = status;
+          articles[aIndex].content = content;
+          articles[aIndex].readTime = readTime;
+          articles[aIndex].description = description;
+          articles[aIndex].featured = featured;
+          articles[aIndex].image = image;
         }
         showToast('Artikel berhasil diperbarui!');
       } else {
@@ -156,7 +229,12 @@
           category: category,
           author: author,
           date: dateStr,
-          status: status
+          status: status,
+          content: content,
+          readTime: readTime,
+          description: description,
+          featured: featured,
+          image: image
         });
         showToast('Artikel berhasil ditambahkan!');
       }
